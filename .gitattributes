@@ -1,0 +1,2 @@
+# Keep CAD exchange files byte-for-byte; generated STEP diffs are very large.
+*.step -text -diff
