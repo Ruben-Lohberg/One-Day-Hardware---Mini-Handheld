@@ -3107,7 +3107,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Regulator_Linear:AP2112K-3.3"
+		(symbol "MiniHandheld:TPS7A2430DBVR"
 			(pin_names
 				(offset 0.254)
 			)
@@ -3127,7 +3127,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "AP2112K-3.3"
+			(property "Value" "TPS7A2430DBVR"
 				(at 0 5.715 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3149,7 +3149,7 @@
 					)
 				)
 			)
-			(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2112.pdf"
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps7a24.pdf"
 				(at 0 2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3160,7 +3160,7 @@
 					)
 				)
 			)
-			(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
+			(property "Description" "200 mA low-dropout linear regulator, fixed 3.0 V output, 18 V maximum operating input, SOT-23-5"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3193,7 +3193,7 @@
 					)
 				)
 			)
-			(symbol "AP2112K-3.3_0_1"
+			(symbol "TPS7A2430DBVR_0_1"
 				(rectangle
 					(start -5.08 4.445)
 					(end 5.08 -5.08)
@@ -3206,7 +3206,7 @@
 					)
 				)
 			)
-			(symbol "AP2112K-3.3_1_1"
+			(symbol "TPS7A2430DBVR_1_1"
 				(pin power_in line
 					(at -7.62 2.54 0)
 					(length 2.54)
@@ -3261,10 +3261,9 @@
 						)
 					)
 				)
-				(pin no_connect line
-					(at 5.08 0 180)
+				(pin passive line
+					(at 7.62 0 180)
 					(length 2.54)
-					(hide yes)
 					(name "NC"
 						(effects
 							(font
@@ -3780,7 +3779,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:+3V3"
+		(symbol "power:+3V0"
 			(power global)
 			(pin_numbers
 				(hide yes)
@@ -3805,7 +3804,7 @@
 					)
 				)
 			)
-			(property "Value" "+3V3"
+			(property "Value" "+3V0"
 				(at 0 3.556 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3837,7 +3836,7 @@
 					)
 				)
 			)
-			(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(property "Description" "Power symbol creates a global label with name \"+3V0\""
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3859,7 +3858,7 @@
 					)
 				)
 			)
-			(symbol "+3V3_0_1"
+			(symbol "+3V0_0_1"
 				(polyline
 					(pts
 						(xy -0.762 1.27) (xy 0 2.54)
@@ -3897,7 +3896,7 @@
 					)
 				)
 			)
-			(symbol "+3V3_1_1"
+			(symbol "+3V0_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 0)
@@ -4150,7 +4149,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "3.3 V regulator"
+	(text "3.0 V regulator"
 		(exclude_from_sim no)
 		(at 121.92 25.4 0)
 		(effects
@@ -4357,7 +4356,7 @@
 		)
 		(uuid "e652c752-6580-4c7c-a48c-01c51e221cb8")
 	)
-	(text "USB powers board; VTref senses +3V3 only"
+	(text "USB powers board; VTref senses +3V0 only"
 		(exclude_from_sim no)
 		(at 200.66 154.94 0)
 		(effects
@@ -4467,6 +4466,11 @@
 	(no_connect
 		(at 67.31 58.42)
 		(uuid "f8088369-cbcf-4965-b840-b051258323d7")
+	)
+	(wire
+		(pts (xy 154.94 43.18) (xy 154.94 50.8))
+		(stroke (width 0) (type default))
+		(uuid "e9e9291c-397d-4d75-9619-b206e17043d3")
 	)
 	(wire
 		(pts
@@ -6000,6 +6004,19 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 154.94 50.8 0)
+		(unit 1)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "204a629d-6c42-4ab2-abb0-28d66cc69a0f")
+		(property "Reference" "#PWR027" (at 154.94 57.15 0) (effects (font (size 1.27 1.27)) (hide yes)))
+		(property "Value" "GND" (at 154.94 55.88 0) (effects (font (size 1.27 1.27))))
+		(pin "1" (uuid "2396ab16-b282-457f-9838-f5d31dc12590"))
+		(instances (project "mini_handheld" (path "/c69276b7-5ae1-48c9-944b-f0ebbe145a2f" (reference "#PWR027") (unit 1))))
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 209.55 68.58 0)
 		(unit 1)
 		(body_style 1)
@@ -6311,7 +6328,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C22775.pdf"
 			(at 335.28 156.21 0)
 			(hide yes)
 			(show_name no)
@@ -6347,7 +6364,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C22775" (at 335.28 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1000T5E" (at 335.28 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 335.28 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 335.28 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 335.28 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 335.28 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Switch:SW_Push")
 		(at 250.19 60.96 0)
@@ -6461,7 +6490,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 176.53 40.64 0)
 		(unit 1)
 		(body_style 1)
@@ -6483,7 +6512,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 176.53 35.56 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6515,7 +6544,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 176.53 40.64 0)
 			(hide yes)
 			(show_name no)
@@ -6712,7 +6741,11 @@
 				)
 			)
 		)
-	)
+
+(property "MPN" "AO3400A" (at 358.14 165.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Alpha & Omega Semiconductor" (at 358.14 165.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:R")
 		(at 77.47 55.88 180)
@@ -6747,7 +6780,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 79.248 55.88 90)
 			(hide yes)
 			(show_name no)
@@ -6758,7 +6791,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C23186.pdf"
 			(at 77.47 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -6794,7 +6827,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C23186" (at 77.47 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF5101T5E" (at 77.47 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 77.47 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 77.47 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 77.47 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 77.47 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:LED")
 		(at 76.2 175.26 90)
@@ -6817,8 +6862,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LED"
-			(at 85.09 176.53 90)
+		(property "Value" "KT-0603R"
+			(at 88.392 176.53 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6828,7 +6873,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric"
 			(at 76.2 175.26 0)
 			(hide yes)
 			(show_name no)
@@ -6839,7 +6884,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C2286.pdf"
 			(at 76.2 175.26 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6848,7 +6893,7 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
+		 (hide yes))
 		(property "Description" ""
 			(at 76.2 175.26 0)
 			(show_name no)
@@ -6873,7 +6918,15 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C2286" (at 76.2 175.26 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "KT-0603R" (at 76.2 175.26 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Hubei KENTO Elec" (at 76.2 175.26 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Color" "Red" (at 76.2 175.26 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:R")
 		(at 242.57 49.53 0)
@@ -6908,7 +6961,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 240.792 49.53 90)
 			(hide yes)
 			(show_name no)
@@ -6919,7 +6972,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25804.pdf"
 			(at 242.57 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -6955,7 +7008,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25804" (at 242.57 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1002T5E" (at 242.57 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 242.57 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 242.57 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 242.57 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 242.57 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 165.1 48.26 0)
@@ -7157,7 +7222,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C14663.pdf"
 			(at 304.8 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -7193,7 +7258,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C14663" (at 304.8 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CC0603KRX7R9BB104" (at 304.8 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "YAGEO" (at 304.8 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 304.8 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "50V" (at 304.8 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X7R" (at 304.8 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 232.41 68.58 0)
@@ -7273,7 +7350,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 210.82 109.22 0)
 		(unit 1)
 		(body_style 1)
@@ -7295,7 +7372,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 210.82 104.14 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7327,7 +7404,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 210.82 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -7351,7 +7428,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 304.8 101.6 0)
 		(unit 1)
 		(body_style 1)
@@ -7373,7 +7450,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 304.8 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7405,7 +7482,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 304.8 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -7429,7 +7506,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 294.64 73.66 0)
 		(unit 1)
 		(body_style 1)
@@ -7451,7 +7528,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 294.64 68.58 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7483,7 +7560,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 294.64 73.66 0)
 			(hide yes)
 			(show_name no)
@@ -7507,7 +7584,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 196.85 43.18 0)
 		(unit 1)
 		(body_style 1)
@@ -7529,7 +7606,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 196.85 38.1 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7561,7 +7638,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 196.85 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -7629,7 +7706,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25804.pdf"
 			(at 294.64 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -7665,9 +7742,21 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25804" (at 294.64 81.28 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1002T5E" (at 294.64 81.28 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 294.64 81.28 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 294.64 81.28 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 294.64 81.28 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 294.64 81.28 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 345.44 101.6 0)
 		(unit 1)
 		(body_style 1)
@@ -7689,7 +7778,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 345.44 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7721,7 +7810,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 345.44 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -7867,7 +7956,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25804.pdf"
 			(at 294.64 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -7903,7 +7992,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25804" (at 294.64 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1002T5E" (at 294.64 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 294.64 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 294.64 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 294.64 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 294.64 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:C")
 		(at 190.5 87.63 0)
@@ -7938,7 +8039,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 191.465 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -7949,7 +8050,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C1779.pdf"
 			(at 190.5 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -7985,7 +8086,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C1779" (at 190.5 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CL21A475KAQNNNE" (at 190.5 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Samsung Electro-Mechanics" (at 190.5 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 190.5 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "25V" (at 190.5 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X5R" (at 190.5 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 360.68 175.26 0)
@@ -8098,7 +8211,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 49.022 114.3 90)
 			(hide yes)
 			(show_name no)
@@ -8109,7 +8222,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25804.pdf"
 			(at 50.8 114.3 0)
 			(hide yes)
 			(show_name no)
@@ -8145,7 +8258,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25804" (at 50.8 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1002T5E" (at 50.8 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 50.8 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 50.8 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 50.8 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 50.8 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 304.8 116.84 0)
@@ -8336,7 +8461,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 42.672 162.56 90)
 			(hide yes)
 			(show_name no)
@@ -8347,7 +8472,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C21190.pdf"
 			(at 44.45 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -8383,7 +8508,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C21190" (at 44.45 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1001T5E" (at 44.45 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 44.45 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 44.45 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 44.45 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 44.45 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 320.04 77.47 0)
@@ -8496,7 +8633,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 176.225 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -8507,7 +8644,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C14663.pdf"
 			(at 175.26 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -8543,7 +8680,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C14663" (at 175.26 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CC0603KRX7R9BB104" (at 175.26 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "YAGEO" (at 175.26 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 175.26 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "50V" (at 175.26 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X7R" (at 175.26 87.63 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 307.34 49.53 0)
@@ -8745,7 +8894,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C15849.pdf"
 			(at 345.44 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -8781,7 +8930,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C15849" (at 345.44 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CL10A105KB8NNNC" (at 345.44 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Samsung Electro-Mechanics" (at 345.44 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 345.44 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "50V" (at 345.44 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X5R" (at 345.44 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 44.45 81.28 0)
@@ -8939,7 +9100,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 123.19 83.82 0)
 		(unit 1)
 		(body_style 1)
@@ -8961,7 +9122,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 123.19 78.74 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8993,7 +9154,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 123.19 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -9017,7 +9178,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 265.43 43.18 0)
 		(unit 1)
 		(body_style 1)
@@ -9039,7 +9200,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 265.43 38.1 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9071,7 +9232,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 265.43 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -9373,7 +9534,11 @@
 				)
 			)
 		)
-	)
+
+(property "MPN" "FH12-12S-0.5SH(55)" (at 342.9 62.23 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Hirose" (at 342.9 62.23 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:C")
 		(at 165.1 44.45 0)
@@ -9397,7 +9562,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "4.7u"
 			(at 168.91 45.7199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9408,7 +9573,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 166.065 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -9419,7 +9584,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C1779.pdf"
 			(at 165.1 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -9455,7 +9620,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C1779" (at 165.1 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CL21A475KAQNNNE" (at 165.1 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Samsung Electro-Mechanics" (at 165.1 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 165.1 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "25V" (at 165.1 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X5R" (at 165.1 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 86.36 59.69 0)
@@ -9635,7 +9812,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "47"
+		(property "Value" "100"
 			(at 363.22 133.35 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9646,7 +9823,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 358.902 132.08 90)
 			(hide yes)
 			(show_name no)
@@ -9657,7 +9834,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C22775.pdf"
 			(at 360.68 132.08 0)
 			(hide yes)
 			(show_name no)
@@ -9693,9 +9870,21 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C22775" (at 360.68 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1000T5E" (at 360.68 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 360.68 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 360.68 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 360.68 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 360.68 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 91.44 104.14 0)
 		(unit 1)
 		(body_style 1)
@@ -9717,7 +9906,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 91.44 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9749,7 +9938,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 91.44 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -9773,7 +9962,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 325.12 101.6 0)
 		(unit 1)
 		(body_style 1)
@@ -9795,7 +9984,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 325.12 96.52 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9827,7 +10016,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 325.12 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -9934,9 +10123,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a818cfdf-5691-4b33-b997-3f508f8435d5")
 		(property "Reference" "J2"
@@ -9961,7 +10150,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MiniHandheld:DEALON_DZ254S-11-05-48_1x05_P2.54mm_SMD"
+		(property "Footprint" "MiniHandheld:PinHeader_1x05_P2.54mm_Horizontal_Edge"
 			(at 228.6 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -9972,7 +10161,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/C5160788.pdf"
+		(property "Datasheet" "~"
 			(at 228.6 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -9994,7 +10183,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5160788"
+		(property "LCSC" ""
 			(at 228.6 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -10005,7 +10194,7 @@
 				)
 			)
 		)
-		(property "MPN" "DZ254S-11-05-48"
+		(property "MPN" ""
 			(at 228.6 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -10016,7 +10205,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DEALON"
+		(property "Manufacturer" ""
 			(at 228.6 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -10349,7 +10538,13 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C529338" (at 120.65 137.16 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "STM32G070CBT6" (at 120.65 137.16 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "STMicroelectronics" (at 120.65 137.16 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 147.32 50.8 0)
@@ -10462,7 +10657,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 84.582 55.88 90)
 			(hide yes)
 			(show_name no)
@@ -10473,7 +10668,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C23186.pdf"
 			(at 86.36 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -10509,7 +10704,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C23186" (at 86.36 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF5101T5E" (at 86.36 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 86.36 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 86.36 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 86.36 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 86.36 55.88 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 77.47 59.69 0)
@@ -10622,7 +10829,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 92.4052 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -10633,7 +10840,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C14663.pdf"
 			(at 91.44 107.95 0)
 			(hide yes)
 			(show_name no)
@@ -10669,7 +10876,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C14663" (at 91.44 107.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CC0603KRX7R9BB104" (at 91.44 107.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "YAGEO" (at 91.44 107.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 91.44 107.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "50V" (at 91.44 107.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X7R" (at 91.44 107.95 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:R")
 		(at 219.71 49.53 0)
@@ -10704,7 +10923,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 217.932 49.53 90)
 			(hide yes)
 			(show_name no)
@@ -10715,7 +10934,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25804.pdf"
 			(at 219.71 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -10751,16 +10970,28 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25804" (at 219.71 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1002T5E" (at 219.71 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 219.71 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 219.71 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 219.71 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 219.71 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Connector:USB_C_Receptacle_USB2.0_16P")
 		(at 52.07 58.42 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c98d9682-947d-4e7c-b577-d095eb37d628")
@@ -10784,7 +11015,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12"
+		(property "Footprint" "MiniHandheld:USB_C_Receptacle_HRO_TYPE-C-31-M-12_Edge"
 			(at 55.88 58.42 0)
 			(hide yes)
 			(show_name no)
@@ -10911,7 +11142,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 50.8 109.22 0)
 		(unit 1)
 		(body_style 1)
@@ -10933,7 +11164,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 50.8 104.14 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10965,7 +11196,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 50.8 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -11111,7 +11342,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25803.pdf"
 			(at 335.28 176.53 0)
 			(hide yes)
 			(show_name no)
@@ -11147,7 +11378,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25803" (at 335.28 176.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1003T5E" (at 335.28 176.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 335.28 176.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 335.28 176.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 335.28 176.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 335.28 176.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:C")
 		(at 325.12 109.22 0)
@@ -11193,7 +11436,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C14663.pdf"
 			(at 325.12 109.22 0)
 			(hide yes)
 			(show_name no)
@@ -11229,7 +11472,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C14663" (at 325.12 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CC0603KRX7R9BB104" (at 325.12 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "YAGEO" (at 325.12 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 325.12 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "50V" (at 325.12 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X7R" (at 325.12 109.22 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 60.96 82.55 0)
@@ -11532,7 +11787,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 263.652 49.53 90)
 			(hide yes)
 			(show_name no)
@@ -11543,7 +11798,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25804.pdf"
 			(at 265.43 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -11579,7 +11834,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25804" (at 265.43 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1002T5E" (at 265.43 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 265.43 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 265.43 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 265.43 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 265.43 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:R")
 		(at 76.2 162.56 0)
@@ -11614,7 +11881,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 74.422 162.56 90)
 			(hide yes)
 			(show_name no)
@@ -11625,7 +11892,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C21190.pdf"
 			(at 76.2 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -11661,7 +11928,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C21190" (at 76.2 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1001T5E" (at 76.2 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 76.2 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 76.2 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 76.2 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 76.2 162.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 255.27 68.58 0)
@@ -11741,7 +12020,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 307.34 67.31 0)
 		(unit 1)
 		(body_style 1)
@@ -11763,7 +12042,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 307.34 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11795,7 +12074,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 307.34 67.31 0)
 			(hide yes)
 			(show_name no)
@@ -11819,7 +12098,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 219.71 43.18 0)
 		(unit 1)
 		(body_style 1)
@@ -11841,7 +12120,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 219.71 38.1 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11873,7 +12152,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 219.71 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -11897,7 +12176,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Linear:AP2112K-3.3")
+		(lib_id "MiniHandheld:TPS7A2430DBVR")
 		(at 147.32 43.18 0)
 		(unit 1)
 		(body_style 1)
@@ -11918,7 +12197,7 @@
 				)
 			)
 		)
-		(property "Value" "AP2112K-3.3"
+		(property "Value" "TPS7A2430DBVR"
 			(at 147.32 36.83 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11939,7 +12218,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP2112.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps7a24.pdf"
 			(at 147.32 40.64 0)
 			(hide yes)
 			(show_name no)
@@ -11950,7 +12229,7 @@
 				)
 			)
 		)
-		(property "Description" "600mA low dropout linear regulator, with enable pin, 3.8V-6V input voltage range, 3.3V fixed positive output, SOT-23-5"
+		(property "Description" "200 mA low-dropout linear regulator, fixed 3.0 V output, 18 V maximum operating input, SOT-23-5"
 			(at 147.32 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -11984,7 +12263,13 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C2864435" (at 147.32 43.18 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "TPS7A2430DBVR" (at 147.32 43.18 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Texas Instruments" (at 147.32 43.18 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "Device:R")
 		(at 196.85 49.53 0)
@@ -12019,7 +12304,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 195.072 49.53 90)
 			(hide yes)
 			(show_name no)
@@ -12030,7 +12315,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C25804.pdf"
 			(at 196.85 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -12066,9 +12351,21 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C25804" (at 196.85 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1002T5E" (at 196.85 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 196.85 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 196.85 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 196.85 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 196.85 49.53 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 242.57 43.18 0)
 		(unit 1)
 		(body_style 1)
@@ -12090,7 +12387,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 242.57 38.1 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12122,7 +12419,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 242.57 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -12259,7 +12556,7 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
+		(lib_id "power:+3V0")
 		(at 294.64 48.26 0)
 		(unit 1)
 		(body_style 1)
@@ -12281,7 +12578,7 @@
 				)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V0"
 			(at 294.64 43.18 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12313,7 +12610,7 @@
 				)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+		(property "Description" "Power symbol creates a global label with name \"+3V0\""
 			(at 294.64 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -12370,7 +12667,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 51.7652 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -12381,7 +12678,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C14663.pdf"
 			(at 50.8 124.46 0)
 			(hide yes)
 			(show_name no)
@@ -12417,7 +12714,19 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C14663" (at 50.8 124.46 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CC0603KRX7R9BB104" (at 50.8 124.46 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "YAGEO" (at 50.8 124.46 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 50.8 124.46 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "50V" (at 50.8 124.46 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X7R" (at 50.8 124.46 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(symbol
 		(lib_id "power:GND")
 		(at 175.26 93.98 0)
@@ -12631,7 +12940,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1u"
+		(property "Value" "2.2u"
 			(at 127 45.7199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12642,7 +12951,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 124.155 48.26 0)
 			(hide yes)
 			(show_name no)
@@ -12653,7 +12962,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C23630.pdf"
 			(at 123.19 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -12689,11 +12998,152 @@
 				)
 			)
 		)
-	)
+
+(property "LCSC" "C23630" (at 123.19 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "CL10A225KO8NNNC" (at 123.19 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "Samsung Electro-Mechanics" (at 123.19 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "10%" (at 123.19 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "50V" (at 123.19 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Dielectric" "X5R" (at 123.19 44.45 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
 	(sheet_instances
 		(path "/"
 			(page "1")
 		)
 	)
 	(embedded_fonts no)
+
+	(no_connect (at 102.87 134.62) (uuid "c1753e44-435e-4291-ab0e-b3136986f58e"))
+	(no_connect (at 102.87 137.16) (uuid "ac4c4a89-eb97-47ac-bed1-7bdcf1765957"))
+	(no_connect (at 102.87 139.7) (uuid "8f34fdf8-cdf6-478a-a6cb-26dd34f7f552"))
+	(no_connect (at 102.87 109.22) (uuid "47236a53-16bc-4384-9a7f-9e6085bd0b0a"))
+	(no_connect (at 102.87 111.76) (uuid "0ec43370-b79b-48a5-a09c-9223caa2ec37"))
+	(no_connect (at 138.43 114.3) (uuid "f3c68f9b-9137-4d11-b09b-78173492f80f"))
+	(no_connect (at 138.43 116.84) (uuid "9414295b-045f-498b-9d98-daab78fcb0df"))
+	(no_connect (at 138.43 139.7) (uuid "e581ad31-e3d0-40c6-8972-871fd13e49c8"))
+	(no_connect (at 138.43 142.24) (uuid "ebe99cd1-7c3f-4506-aede-189068c7ea85"))
+	(no_connect (at 138.43 165.1) (uuid "8195cbd1-c2fc-46c9-b1af-2692f9365707"))
+	(no_connect (at 138.43 119.38) (uuid "bbefe846-ee02-4c15-b695-f84c98393b47"))
+	(no_connect (at 105.41 180.34) (uuid "bc2fa972-f04e-4c1d-9cb8-b0af082947d5"))
+	(no_connect (at 102.87 129.54) (uuid "3218c8ee-f39f-43a8-beec-6ee28a742afe"))
+	(no_connect (at 102.87 132.08) (uuid "ee1309dd-a34a-4232-b7e8-0f3332e7ae41"))
+	(no_connect (at 105.41 177.8) (uuid "e02af62f-c3eb-4fd5-9213-9100a89eb323"))
+	(no_connect (at 138.43 121.92) (uuid "5a5ce521-f14a-41bb-9f8e-787bd8903723"))
+	(no_connect (at 138.43 124.46) (uuid "4b3957cf-9122-4d5b-81e4-f9d918a8c8ee"))
+	(no_connect (at 138.43 132.08) (uuid "89701acd-14a8-4cc6-803c-4f2abd07da68"))
+	(no_connect (at 102.87 116.84) (uuid "f907f663-0a2b-46b1-bea0-b32db56d37cc"))
+	(no_connect (at 102.87 119.38) (uuid "d00ab237-bc77-4de1-8fea-2e320f918555"))
+	(no_connect (at 102.87 121.92) (uuid "8c64af03-5b4b-4b39-b759-cb7b57244ddd"))
+	(no_connect (at 102.87 124.46) (uuid "5fd4b9f1-6c2c-4a7f-b4b4-44bbab1cdf3d"))
+	(no_connect (at 138.43 144.78) (uuid "fb1cb251-18e4-43d6-bbdb-dfdd71da59e9"))
+	(no_connect (at 138.43 147.32) (uuid "58978b81-2e27-489e-9972-54705098a71e"))
+	(no_connect (at 138.43 149.86) (uuid "5161b9d9-3fd0-4fda-8a07-2b7d25ea0649"))
+	(no_connect (at 138.43 152.4) (uuid "97b1c5f1-3b8d-4180-b787-bc4b1a5e1a36"))
+	(no_connect (at 138.43 154.94) (uuid "5346eb5c-99cf-4a07-88b1-7218b9aad370"))
+	(no_connect (at 138.43 157.48) (uuid "c2605f80-d2ad-43b7-9ac4-8928e9cfebe0"))
+	(no_connect (at 138.43 160.02) (uuid "e0fb4647-d418-4f02-b433-dfd630b6fe8d"))
+
+(symbol
+		(lib_id "Device:R")
+		(at 370.840000 132.08 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "21dca3ba-a583-472a-a651-8991abe2d147")
+		(property "Reference" "R15"
+			(at 373.380000 130.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 373.380000 133.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 369.062000 132.08 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/datasheet/C22775.pdf"
+			(at 370.840000 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 370.840000 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "8047f103-b75c-4b66-a4e7-7f80d16d6057")
+		)
+		(pin "1"
+			(uuid "8b56bba8-d93b-46d9-ae1d-c4e8192bbd47")
+		)
+		(instances
+			(project "mini_handheld"
+				(path "/c69276b7-5ae1-48c9-944b-f0ebbe145a2f"
+					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+
+(property "LCSC" "C22775" (at 370.840000 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "MPN" "0603WAF1000T5E" (at 370.840000 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)" (at 370.840000 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Tolerance" "1%" (at 370.840000 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Power" "0.1W" (at 370.840000 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+
+(property "Voltage" "75V" (at 370.840000 132.08 0) (effects (font (size 1.27 1.27)) (hide yes)))
+)
+(wire (pts (xy 360.68 123.19) (xy 370.84 123.19)) (stroke (width 0) (type default)) (uuid "2e57ef67-398d-4a0a-a212-953b75ddda29"))
+(wire (pts (xy 370.84 123.19) (xy 370.84 128.27)) (stroke (width 0) (type default)) (uuid "2b9cfb53-5703-4528-ab52-083aa818cad2"))
+(wire (pts (xy 360.68 140.97) (xy 370.84 140.97)) (stroke (width 0) (type default)) (uuid "1c9db5db-ab55-4153-a3f3-9e22c1f07905"))
+(wire (pts (xy 370.84 140.97) (xy 370.84 135.89)) (stroke (width 0) (type default)) (uuid "106edd42-f788-4993-8057-19ef4842a213"))
 )
