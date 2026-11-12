@@ -1,0 +1,16 @@
+# KiCad per-user settings and editor locks
+*.kicad_prl
+*.lck
+
+# KiCad automatic backups and autosaves
+*-backups/
+_autosave-*
+*.bak
+*.bck
+*.kicad_sch~
+*.kicad_pcb~
+.history/
+
+# Windows Explorer metadata
+Thumbs.db
+Desktop.ini
