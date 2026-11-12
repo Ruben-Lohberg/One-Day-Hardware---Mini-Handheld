@@ -1,0 +1,65 @@
+Mini Handheld - USB source, PWM backlight and 3.0 V sensitivity
+* Actual schematic: U1 TPS7A2430DBVR, C1 2.2uF, R10 || R15 (100 ohms each),
+* Q1 AO3400A. 3.0 V decoupling totals 10.8uF nominal across the board.
+* Effective C, cable impedance, LED drop and logic loads are scenarios.
+* U1 is a behavioral source, NOT a validated TPS7A24 macro-model. The
+* DC gain/headroom estimates and output impedance below are distinct:
+* Rdc sets DC load regulation; Rtr || Ltr raises output impedance on a
+* fast load step; tau=Ltr/Rtr is an assumed regulator response timescale.
+* No startup, measured PSRR, loop stability or board thermal prediction.
+
+.subckt handheld source pwm loadcmd vin vdd ledmon params: cable=0.3 ceff=8u tau=2u rtr=1 vf=3 rb=100
+Rusb source usb_l {cable}
+Lusb usb_l vin 300n
+Rcin vin cin 30m
+C1 cin 0 700n
+
+* Scale the dropout and load-regulation terms from TI's 100 mA dropout
+* and 1-200 mA load-regulation limits. Transient terms remain assumptions.
+Btarget target 0 V={max(0,min(3.0,V(vin)-1.6*max(I(Vldo),0)))}
+Rdc target z 75m
+Rtransient z p {rtr}
+Ltransient z p {rtr*tau}
+Vldo p vdd 0
+Binput vin 0 I={max(I(Vldo),0)+15u}
+Rcout vdd cout 30m
+Ceff cout 0 {ceff}
+Bload vdd 0 I=V(loadcmd)
+
+* Fixed-drop backlight equivalent, with no reverse current.
+* The switch uses Q1's 2.5 V Rds(on) spec as an on-resistance scale.
+R10 vin anode {rb}
+R15 vin anode {rb}
+Bled anode cathode I={max(0,(V(anode,cathode)-vf)/0.25)}
+Vled cathode drain 0
+Sfet drain 0 pwm 0 q1on
+Bmonitor ledmon 0 V=I(Vled)
+.ends handheld
+.model q1on SW(Ron=0.048 Roff=1G Vt=1.5 Vh=0.1)
+
+* PWM first turns on at 20us. At 40us, the USB source sags to 4.4 V.
+* At 65us the MCU + LCD logic load steps from 25 to 75 mA.
+* A separate 3.05 V fault dip tests dropout from 180us to 230us.
+Vusb source 0 PWL(0 5 39u 5 40u 4.4 150u 4.4 155u 5 175u 5 180u 3.05 230u 3.05 235u 5)
+Vpwm pwm 0 PWL(0 0 20u 0 20.2u 3 145u 3 145.2u 0 161u 0 161.2u 3 245u 3 245.2u 0)
+Vload logic 0 PWL(0 0.025 65u 0.025 65.1u 0.075 145u 0.075 145.1u 0.025 165u 0.025 165.1u 0.075 240u 0.075 240.1u 0.025)
+
+Xnom source pwm logic vin_nom vdd_nom led_nom handheld
+Xstress source pwm logic vin_stress vdd_stress led_stress handheld cable=1 ceff=4.2u tau=20u rtr=2 vf=2.8 rb=99
+
+.tran 10n 260u 0 10n
+.meas tran pwm_vin_nom MIN v(vin_nom) FROM=19u TO=39u
+.meas tran pwm_vin_stress MIN v(vin_stress) FROM=19u TO=39u
+.meas tran pwm_vdd_nom MIN v(vdd_nom) FROM=19u TO=39u
+.meas tran pwm_vdd_stress MIN v(vdd_stress) FROM=19u TO=39u
+.meas tran pwm_i_nom AVG v(led_nom) FROM=30u TO=39u
+.meas tran pwm_i_stress AVG v(led_stress) FROM=30u TO=39u
+.meas tran moderate_vdd_nom MIN v(vdd_nom) FROM=39u TO=101u
+.meas tran moderate_vdd_stress MIN v(vdd_stress) FROM=39u TO=101u
+.meas tran recover_nom TRIG AT=65u TARG v(vdd_nom) VAL=2.99 RISE=1 TD=66u
+.meas tran recover_stress TRIG AT=65u TARG v(vdd_stress) VAL=2.99 RISE=1 TD=66u
+.meas tran deep_vin_nom AVG v(vin_nom) FROM=225u TO=229u
+.meas tran deep_vin_stress AVG v(vin_stress) FROM=225u TO=229u
+.meas tran deep_vdd_nom AVG v(vdd_nom) FROM=225u TO=229u
+.meas tran deep_vdd_stress AVG v(vdd_stress) FROM=225u TO=229u
+.end

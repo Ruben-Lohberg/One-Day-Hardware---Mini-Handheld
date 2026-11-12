@@ -1,0 +1,56 @@
+Mini Handheld - board-informed LCD clock sensitivity
+* Snapshot: STM32G070CBT6 PB13/U2.25 to J3.4, 12.35mm, 0.20mm trace,
+* two through vias, 1.51mm FR4 core (Er 4.5), 35um outer copper.
+* PCB sections use 24+42+10ps (~163mm/ns). Via L/C and a separate 130ps
+* flex are assumed. Each section is a short LC ladder: L=Z*TD, C=TD/Z.
+* ~6.2mm has no directly opposite ground;
+* this is NOT a geometry extraction and does not model the return path.
+* GPIO slew/R, connector C, flex Z, and LCD input C are assumptions.
+* No receiver clamps or coupling. Peaks measure ringing tendency, not
+* actual pin stress. The clock is 8 MHz with ~50% duty in these examples.
+
+.subckt section a b params: z=100 td=25p rloss=0.05
+Cstart a 0 {td/z/4}
+R1 a p {rloss/2}
+L1 p m {z*td/2}
+Cmid m 0 {td/z/2}
+R2 m q {rloss/2}
+L2 q b {z*td/2}
+Cend b 0 {td/z/4}
+.ends section
+
+.subckt clock drive rx params: rout=25 rseries=0 zpcb=100 zflex=75 cload=5p
+Rsource drive src {rout+rseries}
+Xfront1 src v1a section z={zpcb} td=24p
+Lvia1 v1a v1b 0.8n
+Cvia1 v1b 0 0.15p
+Xback v1b v2a section z={zpcb} td=42p
+Lvia2 v2a v2b 0.8n
+Cvia2 v2b 0 0.15p
+Xfront2 v2b conn section z={zpcb} td=10p
+Cconn conn 0 0.3p
+Xflex conn rx section z={zflex} td=130p rloss=0.3
+Cpanel rx 0 {cload}
+.ends clock
+
+Vfast fast 0 PULSE(0 3.3 2n 700p 700p 61.8n 125n)
+Vslower slower 0 PULSE(0 3.3 2n 4n 4n 58.5n 125n)
+Xbase fast baseline clock
+Xhi fast hi_z clock zpcb=140 zflex=100 cload=3p
+Xlo fast lo_z clock zpcb=65 zflex=55 cload=12p
+Xslow slower slow_edge clock rout=45
+Xseries fast series33 clock rseries=33
+
+.tran 5p 126n 0 5p
+.meas tran base_peak MAX v(baseline) FROM=2n TO=60n
+.meas tran hi_peak MAX v(hi_z) FROM=2n TO=60n
+.meas tran lo_peak MAX v(lo_z) FROM=2n TO=60n
+.meas tran slow_peak MAX v(slow_edge) FROM=2n TO=60n
+.meas tran series_peak MAX v(series33) FROM=2n TO=60n
+.meas tran base_undershoot MIN v(baseline) FROM=64.5n TO=122n
+.meas tran slow_undershoot MIN v(slow_edge) FROM=64.5n TO=122n
+.meas tran series_undershoot MIN v(series33) FROM=64.5n TO=122n
+.meas tran base_rise TRIG v(baseline) VAL=0.33 RISE=1 TARG v(baseline) VAL=2.97 RISE=1
+.meas tran slow_rise TRIG v(slow_edge) VAL=0.33 RISE=1 TARG v(slow_edge) VAL=2.97 RISE=1
+.meas tran series_rise TRIG v(series33) VAL=0.33 RISE=1 TARG v(series33) VAL=2.97 RISE=1
+.end

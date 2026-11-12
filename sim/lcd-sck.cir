@@ -1,0 +1,35 @@
+Mini Handheld LCD_SCK - illustrative ringing sensitivity, not a board extraction
+* From the repository root, with standalone ngspice on PATH:
+*   ngspice -b sim/lcd-sck.cir
+* Saved PCB: about 12.4 mm from U2.25 to J3.4, including two layer transitions.
+* A 12.4 mm path at an assumed 155 mm/ns gives about 80 ps flight time.
+* 250 ps is an illustrative longer electrical path, not a measured flex delay.
+* Z0=90 ohm, 25 ohm GPIO resistance, 5 pF load and the two edge times are
+* assumptions. No clamp diodes, ground gaps, coupling, vias or connector
+* discontinuities are modeled. Do not compare peaks with device abs max.
+
+.subckt clock_path src rx params: rs=0 td=250p
+Rout src launch {25+rs}
+Tclock launch 0 rx 0 Z0=90 TD={td}
+Cinput rx 0 5p
+.ends clock_path
+
+Vfast fast 0 PULSE(0 3.3 2n 500p 500p 10n 30n)
+Vslow slow 0 PULSE(0 3.3 2n 3n 3n 10n 30n)
+Xpcb fast pcb clock_path rs=0 td=80p
+Xfast fast undamped clock_path rs=0
+Xr33 fast series33 clock_path rs=33
+Xr68 fast series68 clock_path rs=68
+Xslow slow slow_edge clock_path rs=0
+
+.tran 2p 24n 0 2p
+.meas tran pcb_peak MAX v(pcb) FROM=2n TO=12n
+.meas tran undamped_peak MAX v(undamped) FROM=2n TO=12n
+.meas tran series33_peak MAX v(series33) FROM=2n TO=12n
+.meas tran series68_peak MAX v(series68) FROM=2n TO=12n
+.meas tran slow_peak MAX v(slow_edge) FROM=2n TO=14n
+.meas tran undamped_rise TRIG v(undamped) VAL=0.33 RISE=1 TARG v(undamped) VAL=2.97 RISE=1
+.meas tran series33_rise TRIG v(series33) VAL=0.33 RISE=1 TARG v(series33) VAL=2.97 RISE=1
+.meas tran series68_rise TRIG v(series68) VAL=0.33 RISE=1 TARG v(series68) VAL=2.97 RISE=1
+.meas tran slow_rise TRIG v(slow_edge) VAL=0.33 RISE=1 TARG v(slow_edge) VAL=2.97 RISE=1
+.end
