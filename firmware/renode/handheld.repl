@@ -1,0 +1,34 @@
+using "platforms/cpus/stm32g0.repl"
+
+cpu:
+    cpuType: "cortex-m0+"
+
+ram:
+    size: 0x9000
+
+nvic:
+    priorityMask: 0xC0
+    systickFrequency: 16000000
+
+up: Miscellaneous.Button @ gpioPortA
+    invert: true
+    -> gpioPortA@0
+
+down: Miscellaneous.Button @ gpioPortA
+    invert: true
+    -> gpioPortA@1
+
+left: Miscellaneous.Button @ gpioPortA
+    invert: true
+    -> gpioPortA@2
+
+right: Miscellaneous.Button @ gpioPortA
+    invert: true
+    -> gpioPortA@3
+
+led1: Miscellaneous.LED @ gpioPortA
+led2: Miscellaneous.LED @ gpioPortA
+
+gpioPortA:
+    4 -> led1@0
+    5 -> led2@0

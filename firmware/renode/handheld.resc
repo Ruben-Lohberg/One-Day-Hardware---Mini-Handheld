@@ -1,0 +1,3 @@
+mach create "mini-handheld"
+machine LoadPlatformDescription $ORIGIN/handheld.repl
+sysbus LoadELF $ORIGIN/../build/handheld.elf
