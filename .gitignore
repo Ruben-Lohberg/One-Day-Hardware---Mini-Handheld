@@ -14,3 +14,24 @@ _autosave-*
 # Windows Explorer metadata
 Thumbs.db
 Desktop.ini
+
+# Local FreeCAD view copies and automatic backups
+*.FCBak
+/mechanical/display-fit-view.FCStd
+/mechanical/display-fit-view.png
+/mechanical/mini_handheld.FCStd
+/mechanical/mini_handheld.png
+/mechanical/mini_handheld-high-resolution.stl
+/mechanical/HS20HS072RX-display-only.*
+/mechanical/enclosure/*.3mf
+/mechanical/enclosure/enclosure.png
+/mechanical/enclosure/engraving.png
+/mechanical/enclosure/tray-fit.png
+
+# JLCPCB Tools scratch output; the assembly handoff is in manufacturing/jlcpcb
+/mini_handheld/jlcpcb/gerber/
+/mini_handheld/jlcpcb/production_files/
+
+# Local Python bytecode
+__pycache__/
+*.pyc
