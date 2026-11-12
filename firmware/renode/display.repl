@@ -1,0 +1,20 @@
+using "handheld.repl"
+
+spi2: @none
+rcc: @none
+
+boardRcc: Miscellaneous.HandheldRcc @ sysbus 0x40021000 as "rcc"
+boardSyscfg: Miscellaneous.HandheldSyscfg @ sysbus 0x40010000 as "syscfg"
+    rcc: boardRcc
+
+boardSpi2: SPI.HandheldSpi2 @ sysbus 0x40003800 as "spi2"
+    rcc: boardRcc
+    syscfg: boardSyscfg
+
+lcd: SPI.HandheldTft @ boardSpi2
+
+gpioPortB:
+    12 -> lcd@0
+    14 -> lcd@1
+    10 -> lcd@2
+    0 -> lcd@3

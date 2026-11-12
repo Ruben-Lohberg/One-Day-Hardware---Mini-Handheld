@@ -1,0 +1,6 @@
+include $ORIGIN/HandheldTft.cs
+include $ORIGIN/HandheldSpi2.cs
+mach create "mini-handheld-snake"
+machine LoadPlatformDescription $ORIGIN/display.repl
+sysbus.cpu PerformanceInMips 16
+sysbus LoadELF $ORIGIN/../build/handheld-snake.elf

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Handheld Simulator</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="top">
+      <span class="mark" aria-hidden="true">▦</span>
+      <div><p class="eyebrow">VIRTUAL PROTOTYPE</p><h1>Mini Handheld</h1></div>
+      <span id="status" role="status">Connecting</span>
+    </header>
+    <section class="device" aria-label="Virtual handheld">
+      <div class="bezel">
+        <div class="screen-label"><span>TFT DISPLAY</span><span>240 × 320</span></div>
+        <canvas id="screen" width="240" height="320" aria-label="Virtual ST7789 screen"></canvas>
+      </div>
+      <div class="control">
+        <div class="pad" aria-label="Directional buttons">
+          <button class="up" data-bit="1" aria-label="Up" aria-keyshortcuts="ArrowUp">▲</button>
+          <button class="left" data-bit="4" aria-label="Left" aria-keyshortcuts="ArrowLeft">◀</button>
+          <span class="center" aria-hidden="true"></span>
+          <button class="right" data-bit="8" aria-label="Right" aria-keyshortcuts="ArrowRight">▶</button>
+          <button class="down" data-bit="2" aria-label="Down" aria-keyshortcuts="ArrowDown">▼</button>
+        </div>
+        <p>Use the arrow keys or press the D-pad.</p>
+      </div>
+    </section>
+    <footer><span>STM32G070</span><span>SPI2 · RGB565</span><span id="runtime">RENODE</span></footer>
+  </main>
+</body>
+</html>
