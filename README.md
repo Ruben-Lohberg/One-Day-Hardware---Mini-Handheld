@@ -8,13 +8,15 @@ I started from an earlier schematic and rough layout. The commits replay the bui
 
 ## Try it while the boards are in the mail
 
-On Windows, with Python 3, LLVM and Renode installed, run this from the repo:
+**[Play Snake in your browser](https://ruben-lohberg.github.io/One-Day-Hardware---Mini-Handheld/)**. Press an arrow key or tap the on-screen D-pad to start. The demo runs the same Snake C code as WebAssembly and models how pixels reach the TFT over SPI. It runs entirely in the browser.
+
+To try the STM32 firmware in Renode, run this from the repo on Windows with Python 3, LLVM and Renode installed.
 
 ```powershell
 .\firmware\run-web.ps1
 ```
 
-Open [localhost:8765](http://127.0.0.1:8765/) and press an arrow key to start. The browser sends button presses to Renode and shows the pixels written by the STM32 firmware. There is also a [browser timing mock](firmware/README.md#play-snake-in-the-browser) if you want to try it without Renode.
+Open [localhost:8765](http://127.0.0.1:8765/). The browser sends button presses to Renode and shows the pixels written by the STM32 firmware. See the [firmware notes](firmware/README.md#play-snake-in-the-browser) for the mock's timing assumptions and how to run it locally.
 
 ## 1. Start with power and a way to flash the chip
 

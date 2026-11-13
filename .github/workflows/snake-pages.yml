@@ -1,0 +1,49 @@
+name: Deploy Snake to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'firmware/src/**'
+      - 'firmware/web/**'
+      - 'firmware/build.ps1'
+      - 'firmware/build-pages.ps1'
+      - '.github/workflows/snake-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the WebAssembly toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang lld
+      - name: Build the browser timing mock
+        shell: pwsh
+        run: ./firmware/build-pages.ps1
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: firmware/build/pages
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

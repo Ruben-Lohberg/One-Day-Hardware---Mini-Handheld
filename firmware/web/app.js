@@ -92,8 +92,8 @@ async function startMock() {
   document.querySelector("#runtime").textContent = "TIMING MOCK";
   status.textContent = "Loading Snake";
   try {
-    const {SnakeMock} = await import("/mock.js");
-    const response = await fetch("/snake.wasm");
+    const {SnakeMock} = await import("./mock.js");
+    const response = await fetch("./snake.wasm");
     if (!response.ok) throw new Error("Snake mock build is missing");
     const mock = await SnakeMock.create(await response.arrayBuffer(), screen.width, screen.height);
     let timeUs = 0;
@@ -120,5 +120,5 @@ async function startMock() {
   }
 }
 
-if (location.pathname === "/mock") startMock();
+if (document.body.dataset.runtime === "mock" || location.pathname === "/mock") startMock();
 else tick();

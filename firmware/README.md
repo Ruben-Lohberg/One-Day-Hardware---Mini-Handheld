@@ -2,7 +2,9 @@
 
 ## Play Snake in the browser
 
-Run the timing mock from the repository root with PowerShell:
+You can play the timing mock directly on [GitHub Pages](https://ruben-lohberg.github.io/One-Day-Hardware---Mini-Handheld/).
+
+To run it locally, use PowerShell from the repository root.
 
 ```powershell
 .\firmware\run-web.ps1 -Mock

@@ -46,7 +46,8 @@ export class SnakeMock {
   }
 
   readButtons() {
-    while (this.input.length && this.input[0].timeUs <= this.cpuUs) {
+    // Keep a quick tap visible for one poll even if both edges arrive together.
+    if (this.input.length && this.input[0].timeUs <= this.cpuUs) {
       this.buttons = this.input.shift().mask;
     }
     return this.buttons;
