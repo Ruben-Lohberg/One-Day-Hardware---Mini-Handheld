@@ -66,7 +66,7 @@ The case is **47.2 × 95.2 × 15.0 mm** before the buttons. It has a tray, a bez
 
 The [FreeCAD model](mechanical/enclosure/enclosure.FCStd), [assembly notes and STLs](mechanical/enclosure/README.md) and [STEP export workflow](mechanical/README.md) are in the repo.
 
-## 6. Order the parts and start a fit print
+## 6. Order the parts and print a fit prototype
 
 I ordered a batch of five boards from JLCPCB, with the small surface-mount parts and the flex socket already fitted. I'll solder the USB-C receptacle and SWD header myself and plug in the separately ordered display. The [fabrication ZIP, BOM and placement file](manufacturing/jlcpcb/) are together, and the [separate parts list](docs/separate-parts.md) covers what the assembly order doesn't include. Codex GPT-6.1 sol helped compare part and feeder costs and check the export rotations for the MOSFET and regulator.
 
@@ -76,6 +76,20 @@ I started printing the enclosure and a PCB fit model while waiting for the parts
 
 This is the saved slicer preview of the fit-print arrangement. Use the [current STLs](mechanical/enclosure/README.md) when preparing a new print.
 
+Here's what came off the printer: the tray, bezel, four button plungers, and printed stand-ins for the PCB and screen.
+
+![The printed tray, bezel, PCB model, screen and four plungers still on the build plate](docs/images/fit-print-build-plate.jpg)
+
+I dropped the printed PCB and screen into the tray. With the bezel beside it, I can see where the board sits and how the screen lines up with the window.
+
+![The open tray with the printed PCB and screen in place, next to the bezel](docs/images/fit-print-open-case.jpg)
+
+Here it is with the bezel on and all four buttons in place. From the side you can see where the connector opening lands.
+
+| From the front | At an angle | From the side |
+| --- | --- | --- |
+| ![Front view of the printed handheld with four buttons and the screen stand-in](docs/images/fit-print-front.jpg) | ![Angled view of the closed fit prototype](docs/images/fit-print-angled.jpg) | ![Angled side view showing the connector opening](docs/images/fit-print-side.jpg) |
+
 ## 7. Bring up the first board
 
-Once the parts and prints are here, I'll add photos of the prints, delivered boards and first assembly. On the bench I'll check for shorts, measure the 3.0 V rail, connect J-Link and run the button/LED and screen diagnostics before trying Snake. I still need to check the flex latch, USB plug clearance and switch travel on real parts.
+Once the parts are here, I'll add photos of the delivered boards and first assembly. On the bench I'll check for shorts, measure the 3.0 V rail, connect J-Link and run the button/LED and screen diagnostics before trying Snake. I still need to check the flex latch, USB plug clearance and switch travel on real parts.
