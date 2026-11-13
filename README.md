@@ -1,16 +1,25 @@
 # One-Day Hardware: Mini Handheld
 
-I wanted to see how far I could get in one day with a small handheld of my own. I picked Snake because it gives me a good excuse to use a screen, four real buttons and a microcontroller. By the end of the build day I had a routed board, a case, firmware running in an emulator, orders placed for the boards and parts, and the first case and PCB fit model on the printer.
+**My goal was to design a handheld with a display and buttons in one day, including the PCB, enclosure, and firmware.**
 
-I started from an earlier schematic and rough layout. The commits replay the build in order using the original saves where I had them. I used **Codex GPT-6.1 sol** throughout the project: it helped with file edits, datasheet checks, scripts, simulations and the write-up. The interesting part for me was figuring out what to check at each step.
+I settled on a little handheld that plays Snake. By the end of the day, I'd routed the board, designed the case, and run the firmware in an emulator. I'd also ordered assembled boards from JLCPCB and parts from other vendors, and started printing the case and a PCB fit model.
 
 ![FreeCAD render of the assembled mini handheld with a dark bezel and four orange buttons](docs/images/freecad-enclosure.png)
 
+## Tools
+
+- KiCad 10.0 with the [JLCPCB Tools plugin](https://github.com/Bouni/kicad-jlcpcb-tools)
+- FreeCAD 1.1.3
+- Bambu Lab A1 3D printer and Bambu Studio
+- Codex GPT-6.1 sol
+
 ## Try it while the boards are in the mail
 
-**[Play Snake in your browser](https://ruben-lohberg.github.io/One-Day-Hardware---Mini-Handheld/)**. Press an arrow key or tap the on-screen D-pad to start. The demo runs the same Snake C code as WebAssembly and models how pixels reach the TFT over SPI. It runs entirely in the browser.
+**[Play Snake in your browser](https://ruben-lohberg.github.io/One-Day-Hardware---Mini-Handheld/)**. Press an arrow key or tap the on-screen D-pad to start. The demo runs the same Snake code compiled to WebAssembly and models how the TFT receives pixels over SPI.
 
-To try the STM32 firmware in Renode, run this from the repo on Windows with Python 3, LLVM and Renode installed.
+Renode is an emulator that runs the compiled STM32 firmware on a virtual version of the handheld, with simulated buttons and a display.
+
+To try it, run this from the repo on Windows with Python 3, LLVM, and Renode installed.
 
 ```powershell
 .\firmware\run-web.ps1
@@ -27,7 +36,7 @@ I knew I wanted JLCPCB to assemble the boards so I wouldn't have to solder all t
 
 ## 2. KiCad schematic
 
-USB-C gives me 5 V. I kept USB data out of this first board and brought out five pins for a J-Link: power sense, ground, SWDIO, SWCLK and reset. Then I added an STM32G070, four switches with pull-ups and two red LEDs. That gave me something simple to test before asking the screen to do anything.
+I used USB-C for 5 V power and left the USB data lines unused. I brought out target voltage sense, ground, SWDIO, SWCLK, and reset to a five-pin header for the J-Link. With the STM32G070, four switches with pull-ups, and two red LEDs, I had something simple to test before asking the screen to do anything.
 
 I used SPI for pixels, a GPIO for data/command and a PWM output for the backlight. I changed the logic rail from 3.3 V to 3.0 V to give the display supply more headroom and left the backlight on the USB rail. Codex GPT-6.1 sol helped cross-check the symbol pins and footprints against the drawings and run KiCad's electrical rule check.
 
@@ -41,9 +50,11 @@ I chose surface-mount parts wherever I could and kept them on one side so JLCPCB
 
 My first outline was 60 × 95 mm. The display didn't need a board behind all of it, so I let the case carry the glass. That took the PCB down to **42 × 56 mm**. The display flex folds back under the panel into a bottom-contact socket. USB comes out on the left, SWD on the right, and the buttons stay in a cross below the display.
 
-![KiCad plot of the two copper layers, board outline and front silkscreen](docs/images/kicad-routing.png)
+![Side-by-side KiCad plots of front copper in red and back copper in blue, both viewed from the front](docs/images/kicad-routing.png)
 
-On this board, the shortest trace wasn't always the one I wanted. I kept the display clock short but gave it more ground directly underneath, and spaced out the long SWD runs. Codex GPT-6.1 sol helped compare route lengths and the copper on the opposite layer. KiCad found **zero ERC violations, zero board DRC violations and zero unrouted connections**. The schematic parity check flagged the four mounting holes, which exist only on the PCB.
+Both views use the same orientation so I can follow a trace through a via from one layer to the other. I hid the ground pours and silkscreen here to make the traces easier to follow.
+
+On this board, the shortest trace wasn't always the one I wanted. I kept the display clock short while routing more of it over ground on the opposite layer. I also increased the spacing between the long SWD traces. Codex GPT-6.1 sol helped compare route lengths and ground coverage. KiCad found **zero ERC violations, zero board DRC violations, and zero unrouted connections**. The schematic parity check flagged the four mounting holes, which exist only on the PCB.
 
 ![KiCad 3D render of the populated board with the USB-C port, display socket, four switches and right-angle SWD header](docs/images/kicad-board.png)
 
@@ -55,23 +66,29 @@ I wanted to see what the rail would do if USB sagged at the same time the load s
 
 ![ngspice plot comparing nominal and stress cases for the 3.0 V rail during a load step and a deeper USB input dip](docs/images/ngspice-power.svg)
 
-Codex GPT-6.1 sol helped turn those questions into SPICE decks and compare the display clock edges with ST's IBIS output models. I chose medium GPIO slew and 2 MHz SPI for the first firmware. The regulator loop and flex are approximations; I'll measure the actual rail and SCK with the screen connected. The [simulation commands](sim/README.md) and [bring-up notes](docs/hardware-bringup-audit.md) have the assumptions and measurement points.
+Codex GPT-6.1 sol helped write the SPICE decks and compare display clock edges using ST's IBIS output models. I chose medium GPIO slew and 2 MHz SPI for the first firmware. Since the regulator and flex models are approximate, I'll measure the rail voltage and SPI clock with the screen connected. The assumptions and measurement points are in the [simulation instructions](sim/README.md) and [bring-up notes](docs/hardware-bringup-audit.md).
 
 ## 5. Emulation and firmware development
 
-I started with the four buttons and two LEDs, then added a display diagnostic and finally Snake. The screen on the left below is the virtual panel. Renode runs the compiled Cortex-M0+ firmware, and the display model turns its SPI writes into RGB565 pixels. The arrows on the right feed the same active-low GPIO inputs the switches will use.
+I started with the four buttons and two LEDs, then added a display diagnostic before moving on to Snake. Renode runs the compiled Cortex-M0+ firmware, and the virtual display turns its SPI writes into RGB565 pixels. The on-screen D-pad drives the same active-low GPIO inputs as the physical switches.
 
 ![Screenshot of the Renode browser front end showing Snake and the virtual D-pad](docs/images/renode-snake.png)
+
+I added an animated rainbow border to show the display's color range and make refresh speed easier to see. The firmware cycles through RGB565 colors and aims to redraw the border about 30 times a second over the 2 MHz SPI link.
 
 Codex GPT-6.1 sol helped with the STM32 code, Renode's SPI and display models, and the test scripts. The tests cover the buttons and LEDs, display updates, steering, growth, scoring, wall collisions and retry. I also checked that the model catches an early chip-select release and a missing PB15 setup bit. The [firmware notes](firmware/README.md) show how to run the checks.
 
 ## 6. FreeCAD enclosure
 
-I exported a STEP file from KiCad and opened it in FreeCAD. The folded flex is the part I most wanted to see in 3D: it needs to reach the socket without the lid pinching it or the panel leaning on a component. The case carries the display on ledges and holds the PCB on four standoffs.
+I exported a STEP file from KiCad and opened it in FreeCAD. I especially wanted to see how the flex cable would fold. It needs to reach the socket without getting pinched by the lid, and the display needs to clear the components below it. The case supports the display on ledges and holds the PCB on four standoffs.
 
 ![FreeCAD fit study showing the orange display flex folded under the TFT and back toward the board socket](docs/images/freecad-display.png)
 
-The case is **47.2 × 95.2 × 15.0 mm** before the buttons. It has a tray, a bezel and four individual plungers. The plunger lip holds each one in the bezel while the case is closed. I used Codex GPT-6.1 sol to help script the geometry and check clearances at rest and with a button pressed. Next I need to see how that feels in an actual print.
+Here's the full board with the display in place. The inset shows how the orange flex folds back under the panel and enters the Hirose socket. I made the socket translucent in FreeCAD so you can see where the end of the flex sits.
+
+![FreeCAD view of the full populated PCB and display, with a close-up of the orange flex entering the translucent Hirose socket](docs/images/freecad-display-connector.png)
+
+The case measures **47.2 × 95.2 × 15.0 mm**, excluding the buttons. It has a tray, a bezel, and four individual plungers. A lip on each plunger keeps it in the bezel while the case is closed. Codex GPT-6.1 sol helped me script the geometry and check the clearances with the buttons released and pressed.
 
 ![FreeCAD view inside the lower tray with the PCB, display and folded flex installed](docs/images/freecad-tray.png)
 
@@ -79,7 +96,7 @@ The [FreeCAD model](mechanical/enclosure/enclosure.FCStd), [assembly notes and S
 
 ## 7. Order board and parts
 
-I ordered a batch of five boards from JLCPCB, with the small surface-mount parts and the flex socket already fitted. I'll solder the USB-C receptacle and SWD header myself and plug in the separately ordered display. The [fabrication ZIP, BOM and placement file](manufacturing/jlcpcb/) are together, and the [separate parts list](docs/separate-parts.md) covers what the assembly order doesn't include. Codex GPT-6.1 sol helped compare part and feeder costs and check the export rotations for the MOSFET and regulator.
+I ordered five boards from JLCPCB with the small surface-mount parts and flex socket fitted. I'll solder the USB-C receptacle and SWD header myself, then plug in the display I ordered separately. Codex GPT-6.1 sol helped compare part and feeder costs and check the MOSFET and regulator rotations in the placement file. See the [fabrication ZIP, BOM, and placement file](manufacturing/jlcpcb/) and the [separate parts list](docs/separate-parts.md).
 
 ## 8. 3D print prototype
 
@@ -89,7 +106,7 @@ I started printing the enclosure and a PCB fit model while waiting for the parts
 
 This is the saved slicer preview of the fit-print arrangement. Use the [current STLs](mechanical/enclosure/README.md) when preparing a new print.
 
-Here's what came off the printer: the tray, bezel, four button plungers, and printed stand-ins for the PCB and screen.
+I printed the tray, bezel, four button plungers, and stand-ins for the PCB and screen.
 
 ![The printed tray, bezel, PCB model, screen and four plungers still on the build plate](docs/images/fit-print-build-plate.jpg)
 
@@ -99,8 +116,10 @@ I dropped the printed PCB and screen into the tray. With the bezel beside it, I 
 
 Here it is with the bezel on and all four buttons in place. From the side you can see where the connector opening lands.
 
-| From the front | At an angle | From the side |
-| --- | --- | --- |
-| ![Front view of the printed handheld with four buttons and the screen stand-in](docs/images/fit-print-front.jpg) | ![Angled view of the closed fit prototype](docs/images/fit-print-angled.jpg) | ![Angled side view showing the connector opening](docs/images/fit-print-side.jpg) |
+<p>
+  <img src="docs/images/fit-print-front.jpg" alt="Front view of the printed handheld with four buttons and the screen stand-in" width="32%">
+  <img src="docs/images/fit-print-angled.jpg" alt="Angled view of the closed fit prototype" width="32%">
+  <img src="docs/images/fit-print-side.jpg" alt="Angled side view showing the connector opening" width="32%">
+</p>
 
 Once the parts are here, I'll add photos of the delivered boards and first assembly. On the bench I'll check for shorts, measure the 3.0 V rail, connect J-Link and run the button/LED and screen diagnostics before trying Snake. I still need to check the flex latch, USB plug clearance and switch travel on real parts.
