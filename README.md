@@ -25,7 +25,7 @@ To try it, run this from the repo on Windows with Python 3, LLVM, and Renode ins
 .\firmware\run-web.ps1
 ```
 
-Open [localhost:8765](http://127.0.0.1:8765/). The browser sends button presses to Renode and shows the pixels written by the STM32 firmware. See the [firmware notes](firmware/README.md#play-snake-in-the-browser) for the mock's timing assumptions and how to run it locally.
+Open [localhost:8765](http://127.0.0.1:8765/). The browser sends button presses to Renode and shows the pixels written by the STM32 firmware. The [firmware guide](firmware/README.md) has the commands for running the timing mock locally and testing the firmware.
 
 ## 1. Major component decisions
 
@@ -42,7 +42,7 @@ I used SPI for pixels, a GPIO for data/command and a PWM output for the backligh
 
 [![KiCad export of the schematic showing USB power, the STM32, the display interface and the four buttons](docs/images/kicad-schematic.png)](docs/images/kicad-schematic.png)
 
-The [KiCad project](mini_handheld/mini_handheld.kicad_pro) and [design notes](docs/design-notes.md) have the pinouts, part numbers and SWD wiring.
+Open the [KiCad project](mini_handheld/mini_handheld.kicad_pro) to see the schematic and board. The [assembly notes](manufacturing/jlcpcb/#swd-header) show how to wire the J-Link.
 
 ## 3. KiCad board
 
@@ -58,15 +58,13 @@ On this board, the shortest trace wasn't always the one I wanted. I kept the dis
 
 ![KiCad 3D render of the populated board with the USB-C port, display socket, four switches and right-angle SWD header](docs/images/kicad-board.png)
 
-Here are the [placement](docs/placement-review.md) and [routing](docs/routing-review.md) notes, including what the ground coverage check can tell me.
-
 ## 4. Electrical simulations
 
 I wanted to see what the rail would do if USB sagged at the same time the load stepped up. With the USB source at 4.4 V and a simulated 25 → 75 mA load step, the 3.0 V rail dropped to **2.979 V** in the nominal case and **2.929 V** in the stress case. The deeper dip farther right is a separate input fault I added on purpose.
 
 ![ngspice plot comparing nominal and stress cases for the 3.0 V rail during a load step and a deeper USB input dip](docs/images/ngspice-power.svg)
 
-Codex GPT-6.1 sol helped write the SPICE decks and compare display clock edges using ST's IBIS output models. I chose medium GPIO slew and 2 MHz SPI for the first firmware. Since the regulator and flex models are approximate, I'll measure the rail voltage and SPI clock with the screen connected. The assumptions and measurement points are in the [simulation instructions](sim/README.md) and [bring-up notes](docs/hardware-bringup-audit.md).
+Codex GPT-6.1 sol helped write the SPICE decks and compare display clock edges using ST's IBIS output models. I chose medium GPIO slew and 2 MHz SPI for the first firmware. I'll measure the rail voltage and SPI clock with the real screen connected. See the [simulation files and commands](sim/README.md).
 
 ## 5. Emulation and firmware development
 
@@ -80,9 +78,7 @@ Codex GPT-6.1 sol helped with the STM32 code, Renode's SPI and display models, a
 
 ## 6. FreeCAD enclosure
 
-I exported a STEP file from KiCad and opened it in FreeCAD. I especially wanted to see how the flex cable would fold. It needs to reach the socket without getting pinched by the lid, and the display needs to clear the components below it. The case supports the display on ledges and holds the PCB on four standoffs.
-
-![FreeCAD fit study showing the orange display flex folded under the TFT and back toward the board socket](docs/images/freecad-display.png)
+I exported the PCB from KiCad as a STEP file to check the fit in FreeCAD. The case supports the display on ledges and holds the PCB on four standoffs. I needed the flex to reach the socket without getting pinched by the lid.
 
 Here's the full board with the display in place. The inset shows how the orange flex folds back under the panel and enters the Hirose socket. I made the socket translucent in FreeCAD so you can see where the end of the flex sits.
 
@@ -96,7 +92,7 @@ The [FreeCAD model](mechanical/enclosure/enclosure.FCStd), [assembly notes and S
 
 ## 7. Order board and parts
 
-I ordered five boards from JLCPCB with the small surface-mount parts and flex socket fitted. I'll solder the USB-C receptacle and SWD header myself, then plug in the display I ordered separately. Codex GPT-6.1 sol helped compare part and feeder costs and check the MOSFET and regulator rotations in the placement file. See the [fabrication ZIP, BOM, and placement file](manufacturing/jlcpcb/) and the [separate parts list](docs/separate-parts.md).
+I ordered five boards from JLCPCB with the surface-mount parts and flex socket fitted. I'll solder the USB-C receptacle and SWD header myself, then plug in the separately ordered display. Codex GPT-6.1 sol helped compare assembly costs and check the placement file. The [manufacturing folder](manufacturing/jlcpcb/) has the upload files and a short parts list.
 
 ## 8. 3D print prototype
 

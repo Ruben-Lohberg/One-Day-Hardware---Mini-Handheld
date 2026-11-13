@@ -17,10 +17,11 @@ if (-not $KiCadCli) {
         Select-Object -First 1
     if ($command) {
         $KiCadCli = $command.Source
-    } else {
-        $KiCadCli = @(
-            (Join-Path $env:ProgramFiles 'KiCad/10.0/bin/kicad-cli.exe')
-        ) | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
+    } elseif ($env:ProgramFiles) {
+        $standardInstall = Join-Path $env:ProgramFiles 'KiCad/10.0/bin/kicad-cli.exe'
+        if (Test-Path -LiteralPath $standardInstall -PathType Leaf) {
+            $KiCadCli = $standardInstall
+        }
     }
 }
 if (-not $KiCadCli) { throw 'kicad-cli.exe not found. Pass its path with -KiCadCli.' }

@@ -87,9 +87,12 @@ tray=tray.cut(box(X0-.1,-1.42,30.9,45.1,.05,6.65))
 tray=tray.cut(box(42.4,X1+.1,12.5,28.35,1.65,SEAM_Z+.1))
 
 # Recessed lettering, read from outside the back of the tray.
-font = Path(os.environ.get("MINI_HANDHELD_ENGRAVING_FONT",
-                          str(Path(os.environ["WINDIR"]) / "Fonts" / "arialbd.ttf")
-                          if "WINDIR" in os.environ else ""))
+font_path = os.environ.get("MINI_HANDHELD_ENGRAVING_FONT")
+if not font_path and os.environ.get("WINDIR"):
+    font_path = Path(os.environ["WINDIR"]) / "Fonts" / "arialbd.ttf"
+if not font_path or not Path(font_path).is_file():
+    raise FileNotFoundError("Set MINI_HANDHELD_ENGRAVING_FONT to a TrueType font file.")
+font = Path(font_path)
 engraving = ("Ruben Lohberg", "Mini Handheld", "Built in one Day", "Nov. 11th 2026")
 for i, line in enumerate(engraving):
     glyphs = Part.makeWireString(line, str(font.parent) + os.sep, font.name, 3.0, 0.0)

@@ -31,6 +31,7 @@ Desktop.ini
 # JLCPCB Tools scratch output; the assembly handoff is in manufacturing/jlcpcb
 /mini_handheld/jlcpcb/gerber/
 /mini_handheld/jlcpcb/production_files/
+/mini_handheld/jlcpcb/project.db
 
 # Local Python bytecode
 __pycache__/
