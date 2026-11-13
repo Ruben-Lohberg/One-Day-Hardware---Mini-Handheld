@@ -1,7 +1,7 @@
 param([ValidateSet('Gpio', 'Display', 'Snake', 'SnakeMock')][string]$App = 'Gpio')
 
 $ErrorActionPreference = 'Stop'
-$clang = (Get-Command clang -CommandType Application).Source
+$clang = (Get-Command clang -CommandType Application | Select-Object -First 1).Source
 $out = Join-Path $PSScriptRoot 'build'
 New-Item -ItemType Directory -Path $out -Force | Out-Null
 if ($App -eq 'SnakeMock') {
